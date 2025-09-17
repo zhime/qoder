@@ -9,7 +9,7 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-// CacheService Redis缓存服务
+// CacheService 缓存服务
 type CacheService struct {
 	client *redis.Client
 	prefix string

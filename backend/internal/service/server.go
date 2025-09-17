@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"devops-platform/internal/model"
-	"devops-platform/pkg/cache"
+	"devops/internal/model"
+	"devops/pkg/cache"
 
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"

@@ -10,11 +10,9 @@ import (
 )
 
 func setupTestRedis(t *testing.T) *redis.Client {
-	// 使用内存Redis进行测试，或者跳过测试
-	rdb := redis.NewClient(&redis.Options{
+	// 使用内存Redis进行测试，或者跳过测�?	rdb := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
-		DB:   15, // 使用测试数据库
-	})
+		DB:   15, // 使用测试数据�?	})
 
 	// 测试连接
 	ctx := context.Background()
@@ -22,8 +20,7 @@ func setupTestRedis(t *testing.T) *redis.Client {
 		t.Skip("Redis not available, skipping cache tests")
 	}
 
-	// 清空测试数据库
-	rdb.FlushDB(ctx)
+	// 清空测试数据�?	rdb.FlushDB(ctx)
 
 	return rdb
 }
@@ -62,12 +59,10 @@ func TestCacheService(t *testing.T) {
 		assert.NoError(t, err)
 		assert.False(t, exists)
 
-		// 设置键
-		err = cache.Set(ctx, key, "value", time.Minute)
+		// 设置�?		err = cache.Set(ctx, key, "value", time.Minute)
 		assert.NoError(t, err)
 
-		// 键存在
-		exists, err = cache.Exists(ctx, key)
+		// 键存�?		exists, err = cache.Exists(ctx, key)
 		assert.NoError(t, err)
 		assert.True(t, exists)
 	})
@@ -75,16 +70,13 @@ func TestCacheService(t *testing.T) {
 	t.Run("Delete", func(t *testing.T) {
 		key := "delete_key"
 		
-		// 设置键
-		err := cache.Set(ctx, key, "value", time.Minute)
+		// 设置�?		err := cache.Set(ctx, key, "value", time.Minute)
 		assert.NoError(t, err)
 
-		// 删除键
-		err = cache.Delete(ctx, key)
+		// 删除�?		err = cache.Delete(ctx, key)
 		assert.NoError(t, err)
 
-		// 检查键是否被删除
-		exists, err := cache.Exists(ctx, key)
+		// 检查键是否被删�?		exists, err := cache.Exists(ctx, key)
 		assert.NoError(t, err)
 		assert.False(t, exists)
 	})
@@ -105,8 +97,7 @@ func TestCacheService(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, "value1", value)
 
-		// 获取所有字段
-		all, err := cache.GetAllHash(ctx, key)
+		// 获取所有字�?		all, err := cache.GetAllHash(ctx, key)
 		assert.NoError(t, err)
 		assert.Equal(t, "value1", all["field1"])
 		assert.Equal(t, "value2", all["field2"])
@@ -134,23 +125,19 @@ func TestCacheService(t *testing.T) {
 	t.Run("SetOperations", func(t *testing.T) {
 		key := "set_key"
 
-		// 添加到集合
-		err := cache.AddToSet(ctx, key, "member1", "member2")
+		// 添加到集�?		err := cache.AddToSet(ctx, key, "member1", "member2")
 		assert.NoError(t, err)
 
-		// 检查成员
-		isMember, err := cache.IsSetMember(ctx, key, "member1")
+		// 检查成�?		isMember, err := cache.IsSetMember(ctx, key, "member1")
 		assert.NoError(t, err)
 		assert.True(t, isMember)
 
-		// 获取所有成员
-		members, err := cache.GetSetMembers(ctx, key)
+		// 获取所有成�?		members, err := cache.GetSetMembers(ctx, key)
 		assert.NoError(t, err)
 		assert.Contains(t, members, "member1")
 		assert.Contains(t, members, "member2")
 
-		// 从集合删除
-		err = cache.RemoveFromSet(ctx, key, "member1")
+		// 从集合删�?		err = cache.RemoveFromSet(ctx, key, "member1")
 		assert.NoError(t, err)
 
 		// 检查成员是否被删除
@@ -162,8 +149,7 @@ func TestCacheService(t *testing.T) {
 	t.Run("SortedSetOperations", func(t *testing.T) {
 		key := "zset_key"
 
-		// 添加到有序集合
-		err := cache.AddToSortedSet(ctx, key, 100, "member1")
+		// 添加到有序集�?		err := cache.AddToSortedSet(ctx, key, 100, "member1")
 		assert.NoError(t, err)
 		err = cache.AddToSortedSet(ctx, key, 200, "member2")
 		assert.NoError(t, err)

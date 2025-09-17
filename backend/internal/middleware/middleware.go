@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"devops-platform/internal/auth"
+	"devops/internal/auth"
 
 	"github.com/gin-gonic/gin"
 )
@@ -32,7 +32,7 @@ func CORS() gin.HandlerFunc {
 // JWTAuth JWT认证中间件
 func JWTAuth(secret string) gin.HandlerFunc {
 	jwtManager := auth.NewJWTManager(secret, 3600, 604800)
-	
+
 	return func(c *gin.Context) {
 		authorization := c.GetHeader("Authorization")
 		if authorization == "" {
@@ -56,7 +56,7 @@ func JWTAuth(secret string) gin.HandlerFunc {
 
 		// 提取token
 		token := strings.TrimPrefix(authorization, "Bearer ")
-		
+
 		// 验证token
 		claims, err := jwtManager.ValidateToken(token)
 		if err != nil {

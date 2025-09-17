@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"devops-platform/internal/config"
+	"devops/internal/config"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

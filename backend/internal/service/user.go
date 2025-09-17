@@ -4,11 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"time"
 
-	"devops-platform/internal/auth"
-	"devops-platform/internal/model"
-	"devops-platform/pkg/cache"
+	"devops/internal/auth"
+	"devops/internal/model"
+	"devops/pkg/cache"
 
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
@@ -36,7 +35,7 @@ func NewUserService(db *gorm.DB, rdb *redis.Client) *UserService {
 // Login 用户登录验证
 func (s *UserService) Login(username, password string) (*model.User, error) {
 	var user model.User
-	
+
 	// 根据用户名或邮箱查询用户
 	err := s.db.Where("username = ? OR email = ?", username, username).First(&user).Error
 	if err != nil {
@@ -62,14 +61,14 @@ func (s *UserService) Login(username, password string) (*model.User, error) {
 // GetByID 根据ID获取用户
 func (s *UserService) GetByID(id uint) (*model.User, error) {
 	ctx := context.Background()
-	
+
 	// 先从缓存查找
 	var user model.User
 	cacheKey := s.keys.UserInfo(id)
 	if err := s.cache.Get(ctx, cacheKey, &user); err == nil {
 		return &user, nil
 	}
-	
+
 	// 缓存中没有，从数据库查询
 	err := s.db.First(&user, id).Error
 	if err != nil {
@@ -78,10 +77,10 @@ func (s *UserService) GetByID(id uint) (*model.User, error) {
 		}
 		return nil, fmt.Errorf("查询用户失败: %w", err)
 	}
-	
+
 	// 将结果存入缓存
 	s.cache.Set(ctx, cacheKey, &user, cache.TTLUserInfo)
-	
+
 	return &user, nil
 }
 

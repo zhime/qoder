@@ -4,7 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"devops-platform/internal/config"
+	"devops/internal/config"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

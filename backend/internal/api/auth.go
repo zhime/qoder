@@ -3,8 +3,8 @@ package api
 import (
 	"net/http"
 
-	"devops-platform/internal/auth"
-	"devops-platform/internal/service"
+	"devops/internal/auth"
+	"devops/internal/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"

@@ -13,8 +13,7 @@ func TestCollector(t *testing.T) {
 	ctx := context.Background()
 
 	t.Run("CollectSystemMetrics", func(t *testing.T) {
-		// 由于这个测试需要访问系统资源，在CI环境中可能失败
-		// 可以根据环境跳过
+		// 由于这个测试需要访问系统资源，在CI环境中可能失�?		// 可以根据环境跳过
 		if testing.Short() {
 			t.Skip("跳过系统监控测试")
 		}
@@ -34,25 +33,20 @@ func TestCollector(t *testing.T) {
 		assert.LessOrEqual(t, metrics.CPU.Usage, 100.0)
 		assert.Greater(t, metrics.CPU.Cores, 0)
 
-		// 检查内存指标
-		assert.Greater(t, metrics.Memory.Total, uint64(0))
+		// 检查内存指�?		assert.Greater(t, metrics.Memory.Total, uint64(0))
 		assert.GreaterOrEqual(t, metrics.Memory.Usage, 0.0)
 		assert.LessOrEqual(t, metrics.Memory.Usage, 100.0)
 
-		// 检查磁盘指标
-		assert.NotEmpty(t, metrics.Disk.Partitions)
+		// 检查磁盘指�?		assert.NotEmpty(t, metrics.Disk.Partitions)
 
-		// 检查网络指标
-		assert.NotEmpty(t, metrics.Network.Interfaces)
+		// 检查网络指�?		assert.NotEmpty(t, metrics.Network.Interfaces)
 
-		// 检查负载指标
-		assert.GreaterOrEqual(t, metrics.Load.Load1, 0.0)
+		// 检查负载指�?		assert.GreaterOrEqual(t, metrics.Load.Load1, 0.0)
 
-		// 检查系统信息
-		assert.Greater(t, metrics.Processes, 0)
+		// 检查系统信�?		assert.Greater(t, metrics.Processes, 0)
 		assert.Greater(t, metrics.Uptime, int64(0))
 
-		t.Logf("系统监控数据: CPU=%.2f%%, 内存=%.2f%%, 进程数=%d", 
+		t.Logf("系统监控数据: CPU=%.2f%%, 内存=%.2f%%, 进程�?%d", 
 			metrics.CPU.Usage, metrics.Memory.Usage, metrics.Processes)
 	})
 
@@ -77,7 +71,7 @@ func TestCollector(t *testing.T) {
 			assert.Greater(t, proc.MemoryRSS, uint64(0))
 		}
 
-		t.Logf("收集到 %d 个进程信息", len(processes))
+		t.Logf("收集�?%d 个进程信�?, len(processes))
 	})
 }
 
@@ -112,7 +106,7 @@ func TestMonitorTypes(t *testing.T) {
 			CurrentValue: 85.5,
 			Threshold:    80.0,
 			Status:       "firing",
-			Message:      "CPU使用率过高",
+			Message:      "CPU使用率过�?,
 			FiredAt:      time.Now(),
 		}
 

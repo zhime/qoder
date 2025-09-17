@@ -39,37 +39,37 @@ func (c *Collector) CollectSystemMetrics(ctx context.Context) (*SystemMetrics, e
 
 	// 并发收集各项指标
 	errChan := make(chan error, 6)
-	
+
 	go func() {
 		var err error
 		metrics.CPU, err = c.collectCPUMetrics(ctx)
 		errChan <- err
 	}()
-	
+
 	go func() {
 		var err error
 		metrics.Memory, err = c.collectMemoryMetrics(ctx)
 		errChan <- err
 	}()
-	
+
 	go func() {
 		var err error
 		metrics.Disk, err = c.collectDiskMetrics(ctx)
 		errChan <- err
 	}()
-	
+
 	go func() {
 		var err error
 		metrics.Network, err = c.collectNetworkMetrics(ctx)
 		errChan <- err
 	}()
-	
+
 	go func() {
 		var err error
 		metrics.Load, err = c.collectLoadMetrics(ctx)
 		errChan <- err
 	}()
-	
+
 	go func() {
 		var err error
 		metrics.Processes, metrics.Uptime, err = c.collectSystemInfo(ctx)
@@ -117,7 +117,7 @@ func (c *Collector) collectCPUMetrics(ctx context.Context) (CPUMetrics, error) {
 	}
 
 	total := cpuTime.User + cpuTime.System + cpuTime.Idle + cpuTime.Iowait + cpuTime.Nice + cpuTime.Irq + cpuTime.Softirq
-	
+
 	return CPUMetrics{
 		Usage:      usage,
 		UserMode:   (cpuTime.User / total) * 100,
@@ -362,7 +362,7 @@ func (c *Collector) CollectProcessMetrics(ctx context.Context, limit int) ([]Pro
 func (c *Collector) CheckServiceStatus(ctx context.Context, serviceName string) (*ServiceStatus, error) {
 	// 这里实现服务状态检查逻辑
 	// 不同操作系统可能需要不同的实现
-	
+
 	status := &ServiceStatus{
 		Name:   serviceName,
 		Status: "unknown",
