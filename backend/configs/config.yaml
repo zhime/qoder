@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  mode: debug # debug, release, test
+
+database:
+  driver: mysql
+  host: localhost
+  port: 3306
+  username: root
+  password: ""
+  database: devops_platform
+  charset: utf8mb4
+  parse_time: true
+  loc: Local
+  max_idle_conns: 10
+  max_open_conns: 100
+
+redis:
+  host: localhost
+  port: 6379
+  password: ""
+  db: 0
+  pool_size: 10
+
+jwt:
+  secret: "your-secret-key-here"
+  expired: 3600 # seconds
+  refresh_expired: 604800 # 7 days
+
+log:
+  level: info # debug, info, warn, error
+  filename: logs/app.log
+  max_size: 100 # MB
+  max_age: 30 # days
+  max_backups: 5
+  compress: true
+
+monitor:
+  interval: 30 # seconds
+  timeout: 10 # seconds
