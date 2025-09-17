@@ -12,7 +12,6 @@ import (
 	"devops/internal/config"
 
 	"github.com/redis/go-redis/v9"
-	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
 
@@ -21,7 +20,6 @@ type Application struct {
 	config *config.Config
 	db     *gorm.DB
 	rdb    *redis.Client
-	logger *zap.Logger
 
 	// 管理器组件
 	configMgr   *ConfigManager

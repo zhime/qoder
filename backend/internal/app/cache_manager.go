@@ -25,13 +25,13 @@ func NewCacheManager(cfg config.Redis) *CacheManager {
 func (cm *CacheManager) Initialize() (*redisPkg.Client, error) {
 	rdb, err := redis.Init(cm.config)
 	if err != nil {
-		return nil, fmt.Errorf("Redis初始化失败: %w", err)
+		return nil, fmt.Errorf("redis初始化失败: %w", err)
 	}
 
 	cm.rdb = rdb
 
 	if err := cm.ping(); err != nil {
-		return nil, fmt.Errorf("Redis连接测试失败: %w", err)
+		return nil, fmt.Errorf("redis连接测试失败: %w", err)
 	}
 
 	return rdb, nil
@@ -39,7 +39,7 @@ func (cm *CacheManager) Initialize() (*redisPkg.Client, error) {
 
 func (cm *CacheManager) ping() error {
 	if cm.rdb == nil {
-		return fmt.Errorf("Redis客户端未初始化")
+		return fmt.Errorf("redis客户端未初始化")
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

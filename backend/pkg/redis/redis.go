@@ -21,7 +21,7 @@ func Init(cfg config.Redis) (*redis.Client, error) {
 	// 测试连接
 	ctx := context.Background()
 	if err := rdb.Ping(ctx).Err(); err != nil {
-		return nil, fmt.Errorf("Redis连接测试失败: %w", err)
+		return nil, fmt.Errorf("redis连接测试失败: %w", err)
 	}
 
 	return rdb, nil
