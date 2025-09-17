@@ -42,5 +42,5 @@ func TestHealthEndpoint(t *testing.T) {
 
 func TestLoginEndpoint(t *testing.T) {
 	// 这个测试需要完整的数据库设置，暂时跳过
-	t.Skip("需要数据库连接，暂时跳过")
+	t.Skip("需要数据库连接，暂时跳�?)
 }

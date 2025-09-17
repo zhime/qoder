@@ -18,12 +18,16 @@ type Config struct {
 
 // Server 服务器配置
 type Server struct {
-	Port int    `mapstructure:"port"`
-	Mode string `mapstructure:"mode"`
+	Port         int    `mapstructure:"port"`
+	Mode         string `mapstructure:"mode"`
+	ReadTimeout  int    `mapstructure:"read_timeout"`
+	WriteTimeout int    `mapstructure:"write_timeout"`
+	IdleTimeout  int    `mapstructure:"idle_timeout"`
 }
 
 // Database 数据库配置
 type Database struct {
+	DSN          string `mapstructure:"dsn"`
 	Driver       string `mapstructure:"driver"`
 	Host         string `mapstructure:"host"`
 	Port         int    `mapstructure:"port"`
@@ -39,6 +43,7 @@ type Database struct {
 
 // Redis 配置
 type Redis struct {
+	Addr     string `mapstructure:"addr"`
 	Host     string `mapstructure:"host"`
 	Port     int    `mapstructure:"port"`
 	Password string `mapstructure:"password"`
@@ -48,9 +53,9 @@ type Redis struct {
 
 // JWT 配置
 type JWT struct {
-	Secret          string `mapstructure:"secret"`
-	Expired         int    `mapstructure:"expired"`
-	RefreshExpired  int    `mapstructure:"refresh_expired"`
+	Secret         string `mapstructure:"secret"`
+	Expired        int    `mapstructure:"expired"`
+	RefreshExpired int    `mapstructure:"refresh_expired"`
 }
 
 // Log 日志配置
@@ -75,7 +80,7 @@ func Load() (*Config, error) {
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("./configs")
 	viper.AddConfigPath("../configs")
-	
+
 	// 设置环境变量前缀
 	viper.SetEnvPrefix("DEVOPS")
 	viper.AutomaticEnv()

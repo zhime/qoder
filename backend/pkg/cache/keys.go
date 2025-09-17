@@ -17,13 +17,13 @@ const (
 
 // 缓存过期时间
 const (
-	TTLUserInfo       = 1 * time.Hour    // 用户信息缓存1小时
-	TTLServerList     = 10 * time.Minute // 服务器列表缓存10分钟
-	TTLServerMetrics  = 5 * time.Minute  // 服务器监控数据缓存5分钟
-	TTLDeployStatus   = 30 * time.Minute // 部署状态缓存30分钟
-	TTLTaskNextRun    = 0                // 任务执行队列永不过期
-	TTLSession        = 24 * time.Hour   // 会话缓存24小时
-	TTLRefreshToken   = 7 * 24 * time.Hour // 刷新令牌缓存7天
+	TTLUserInfo      = 1 * time.Hour      // 用户信息缓存1小时
+	TTLServerList    = 10 * time.Minute   // 服务器列表缓存10分钟
+	TTLServerMetrics = 5 * time.Minute    // 服务器监控数据缓存5分钟
+	TTLDeployStatus  = 30 * time.Minute   // 部署状态缓存30分钟
+	TTLTaskNextRun   = 0                  // 任务执行队列永不过期
+	TTLSession       = 24 * time.Hour     // 会话缓存24小时
+	TTLRefreshToken  = 7 * 24 * time.Hour // 刷新令牌缓存7天
 )
 
 // CacheKeys 缓存键生成器

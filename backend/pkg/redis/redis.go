@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"devops-platform/internal/config"
+	"devops/internal/config"
 
 	"github.com/redis/go-redis/v9"
 )

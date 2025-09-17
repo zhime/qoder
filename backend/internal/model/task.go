@@ -8,20 +8,20 @@ import (
 
 // Task 任务模型
 type Task struct {
-	ID         uint           `gorm:"primaryKey" json:"id"`
-	Name       string         `gorm:"size:100;not null" json:"name"`
-	Command    string         `gorm:"type:text;not null" json:"command"`
-	CronExpr   string         `gorm:"size:50" json:"cron_expr"`
-	ServerID   uint           `gorm:"index;not null" json:"server_id"`
-	Server     Server         `gorm:"foreignKey:ServerID" json:"server,omitempty"`
-	Status     int            `gorm:"default:1" json:"status"` // 0:禁用 1:启用
-	LastRun    *time.Time     `json:"last_run"`
-	NextRun    *time.Time     `json:"next_run"`
-	CreatedBy  uint           `gorm:"index;not null" json:"created_by"`
-	User       User           `gorm:"foreignKey:CreatedBy" json:"user,omitempty"`
-	CreatedAt  time.Time      `json:"created_at"`
-	UpdatedAt  time.Time      `json:"updated_at"`
-	DeletedAt  gorm.DeletedAt `gorm:"index" json:"-"`
+	ID        uint           `gorm:"primaryKey" json:"id"`
+	Name      string         `gorm:"size:100;not null" json:"name"`
+	Command   string         `gorm:"type:text;not null" json:"command"`
+	CronExpr  string         `gorm:"size:50" json:"cron_expr"`
+	ServerID  uint           `gorm:"index;not null" json:"server_id"`
+	Server    Server         `gorm:"foreignKey:ServerID" json:"server,omitempty"`
+	Status    int            `gorm:"default:1" json:"status"` // 0:禁用 1:启用
+	LastRun   *time.Time     `json:"last_run"`
+	NextRun   *time.Time     `json:"next_run"`
+	CreatedBy uint           `gorm:"index;not null" json:"created_by"`
+	User      User           `gorm:"foreignKey:CreatedBy" json:"user,omitempty"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 
 	// 关联
 	Executions []TaskExecution `gorm:"foreignKey:TaskID" json:"-"`

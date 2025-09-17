@@ -8,7 +8,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-// Claims JWT声明结构
+// Claims JWT声明
 type Claims struct {
 	UserID   uint   `json:"user_id"`
 	Username string `json:"username"`

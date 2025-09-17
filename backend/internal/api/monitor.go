@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"devops-platform/internal/monitor"
+	"devops/internal/monitor"
 
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"

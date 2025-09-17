@@ -1,8 +1,8 @@
 package api
 
 import (
-	"devops-platform/internal/config"
-	"devops-platform/internal/middleware"
+	"devops/internal/config"
+	"devops/internal/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
@@ -26,7 +26,7 @@ func NewRouter(db *gorm.DB, rdb *redis.Client, cfg *config.Config) *gin.Engine {
 	// 健康检查端点
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"status": "ok",
+			"status":  "ok",
 			"message": "Service is running",
 		})
 	})
