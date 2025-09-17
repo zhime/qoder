@@ -33,7 +33,8 @@ func (dm *DatabaseManager) Initialize() (*gorm.DB, error) {
 
 	dm.db = db
 
-	// 设置连接池配�?	if err := dm.configureConnectionPool(); err != nil {
+	// 设置连接池配置
+	if err := dm.configureConnectionPool(); err != nil {
 		return nil, fmt.Errorf("数据库连接池配置失败: %w", err)
 	}
 
@@ -47,31 +48,36 @@ func (dm *DatabaseManager) configureConnectionPool() error {
 		return err
 	}
 
-	// 设置最大打开连接�?	sqlDB.SetMaxOpenConns(25)
+	// 设置最大打开连接数
+	sqlDB.SetMaxOpenConns(25)
 	// 设置最大空闲连接数
 	sqlDB.SetMaxIdleConns(10)
-	// 设置连接最大生存时�?	sqlDB.SetConnMaxLifetime(5 * time.Minute)
+	// 设置连接最大生存时间
+	sqlDB.SetConnMaxLifetime(5 * time.Minute)
 
 	return nil
 }
 
-// Migrate 执行数据库迁�?func (dm *DatabaseManager) Migrate() error {
+// Migrate 执行数据库迁移
+func (dm *DatabaseManager) Migrate() error {
 	if dm.db == nil {
 		return fmt.Errorf("数据库未初始化，无法执行迁移")
 	}
 
 	if err := model.AutoMigrate(dm.db); err != nil {
-		return fmt.Errorf("数据库迁移失�? %w", err)
+		return fmt.Errorf("数据库迁移失败: %w", err)
 	}
 
 	return nil
 }
 
-// GetDB 获取数据库实�?func (dm *DatabaseManager) GetDB() *gorm.DB {
+// GetDB 获取数据库实例
+func (dm *DatabaseManager) GetDB() *gorm.DB {
 	return dm.db
 }
 
-// Close 关闭数据库连�?func (dm *DatabaseManager) Close() error {
+// Close 关闭数据库连接
+func (dm *DatabaseManager) Close() error {
 	if dm.db == nil {
 		return nil
 	}
@@ -84,9 +90,10 @@ func (dm *DatabaseManager) configureConnectionPool() error {
 	return sqlDB.Close()
 }
 
-// Ping 检测数据库连接状�?func (dm *DatabaseManager) Ping() error {
+// Ping 检测数据库连接状态
+func (dm *DatabaseManager) Ping() error {
 	if dm.db == nil {
-		return fmt.Errorf("数据库未初始�?)
+		return fmt.Errorf("数据库未初始化")
 	}
 
 	sqlDB, err := dm.db.DB()

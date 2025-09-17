@@ -50,7 +50,8 @@ type UpdateUserRequest struct {
 	Status   *int   `json:"status" binding:"omitempty,oneof=0 1"`
 }
 
-// CreateServerRequest 创建服务器请�?type CreateServerRequest struct {
+// CreateServerRequest 创建服务器请求
+type CreateServerRequest struct {
 	Name        string `json:"name" binding:"required"`
 	Host        string `json:"host" binding:"required"`
 	Port        int    `json:"port" binding:"required,min=1,max=65535"`
@@ -61,7 +62,8 @@ type UpdateUserRequest struct {
 	Description string `json:"description"`
 }
 
-// UpdateServerRequest 更新服务器请�?type UpdateServerRequest struct {
+// UpdateServerRequest 更新服务器请求
+type UpdateServerRequest struct {
 	Name        string `json:"name"`
 	Host        string `json:"host"`
 	Port        *int   `json:"port" binding:"omitempty,min=1,max=65535"`

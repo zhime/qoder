@@ -58,7 +58,8 @@ func RateLimit(rdb *redis.Client, config RateLimitConfig) gin.HandlerFunc {
 			cacheService.SetExpire(ctx, rateLimitKey, config.Window)
 		}
 
-		// 检查是否超过限�?		if count > int64(config.MaxRequests) {
+		// 检查是否超过限制
+		if count > int64(config.MaxRequests) {
 			c.JSON(http.StatusTooManyRequests, gin.H{
 				"code":    429,
 				"message": config.Message,
@@ -67,14 +68,16 @@ func RateLimit(rdb *redis.Client, config RateLimitConfig) gin.HandlerFunc {
 			return
 		}
 
-		// 设置响应�?		c.Header("X-RateLimit-Limit", strconv.Itoa(config.MaxRequests))
+		// 设置响应头
+		c.Header("X-RateLimit-Limit", strconv.Itoa(config.MaxRequests))
 		c.Header("X-RateLimit-Remaining", strconv.Itoa(config.MaxRequests-int(count)))
 
 		c.Next()
 	}
 }
 
-// LoginRateLimit 登录限流中间�?func LoginRateLimit(rdb *redis.Client) gin.HandlerFunc {
+// LoginRateLimit 登录限流中间件
+func LoginRateLimit(rdb *redis.Client) gin.HandlerFunc {
 	cacheService := cache.NewCacheService(rdb, "devops")
 	keys := cache.NewCacheKeys()
 
@@ -100,7 +103,7 @@ func RateLimit(rdb *redis.Client, config RateLimitConfig) gin.HandlerFunc {
 		if attempts > 5 {
 			c.JSON(http.StatusTooManyRequests, gin.H{
 				"code":    429,
-				"message": "登录尝试次数过多，请15分钟后再�?,
+				"message": "登录尝试次数过多，请15分钟后再试",
 			})
 			c.Abort()
 			return
@@ -108,7 +111,8 @@ func RateLimit(rdb *redis.Client, config RateLimitConfig) gin.HandlerFunc {
 
 		c.Next()
 
-		// 如果登录成功，清除尝试计�?		if c.Writer.Status() == http.StatusOK {
+		// 如果登录成功，清除尝试计数
+		if c.Writer.Status() == http.StatusOK {
 			cacheService.Delete(ctx, attemptKey)
 		}
 	}
